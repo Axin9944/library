@@ -3,6 +3,8 @@ package com.bjpowernode.module.user;
 import com.bjpowernode.bean.Constant;
 import com.bjpowernode.bean.User;
 import com.bjpowernode.global.util.Alerts;
+import com.bjpowernode.service.UserService;
+import com.bjpowernode.service.impl.UserServiceImpl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
@@ -10,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 
 public class UserHandleViewCtrl {
@@ -32,6 +35,9 @@ public class UserHandleViewCtrl {
     //修改的user对象
     private User user;
 
+    // UserService对象
+    private UserService userService = new UserServiceImpl();
+
     /*
         添加或修改数据
      */
@@ -45,6 +51,11 @@ public class UserHandleViewCtrl {
                 populate(user);
                 //设置状态为正常
                 user.setStatus(Constant.USER_OK);
+                // 设置是否借过书
+                user.setLend(false);
+                // 添加用户至文件
+                userService.addUser(user);
+                // 添加用户至内存
                 users.add(user);
             }else {
                 //修改操作
@@ -63,8 +74,10 @@ public class UserHandleViewCtrl {
     }
 
     private void populate(User user) {
+        String id = UUID.randomUUID().toString();
         user.setMoney(new BigDecimal(moneyField.getText()));
         user.setName(userNameField.getText());
+        user.setId(id);
     }
 
     @FXML
