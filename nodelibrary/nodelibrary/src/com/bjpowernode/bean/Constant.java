@@ -27,6 +27,9 @@ public class Constant {
     public static final String LEND_RETURN = "归还";
     public static final String LEND_LEND = "借出";
 
-
+    // 文件路径
+    public static final String USER_PATH = "user/user.txt";
+    public static final String BOOK_PAYH = "book/book.txt";
+    public static final String Lend_PATH = "lend/lend.txt";
 
 }
