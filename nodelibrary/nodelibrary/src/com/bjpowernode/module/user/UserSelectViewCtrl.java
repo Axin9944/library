@@ -39,9 +39,9 @@ public class UserSelectViewCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        users.add(new User(1, "张三", "正常", new BigDecimal(("100"))));
-        users.add(new User(2, "李四", "正常", new BigDecimal(("100"))));
-        users.add(new User(3, "王五", "正常", new BigDecimal(("100"))));
+        users.add(new User("1", "张三", "正常", new BigDecimal(("100"))));
+        users.add(new User("2", "李四", "正常", new BigDecimal(("100"))));
+        users.add(new User("3", "王五", "正常", new BigDecimal(("100"))));
         c1.setCellValueFactory(new PropertyValueFactory<>("id"));
         c2.setCellValueFactory(new PropertyValueFactory<>("name"));
         userTableView.setItems(users);

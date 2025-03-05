@@ -65,7 +65,7 @@ public class LendViewCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Book book = new Book(1, "java实战入门", "张三", Constant.TYPE_COMPUTER, "12-987", "XX出版社", Constant.STATUS_STORAGE);
-        User user = new User(1, "张三", "正常", new BigDecimal(("100")));
+        User user = new User("1", "张三", "正常", new BigDecimal(("100")));
         LocalDate now = LocalDate.now();
         lends.add(new Lend(1,book,user, Constant.LEND_LEND, now,now.plusDays(30)));
 
