@@ -8,4 +8,5 @@ public interface userDao {
     List<User> selectUser();
     void addUser(User user);
     void updateUser(User user);
+    void deleteUser(User user);
 }

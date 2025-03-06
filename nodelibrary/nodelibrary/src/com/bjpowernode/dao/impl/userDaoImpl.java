@@ -53,6 +53,9 @@ public class userDaoImpl implements userDao {
         }
     }
 
+    /*
+    *  修改用户数据
+    * */
     @Override
     public void updateUser(User user) {
         ObjectInputStream ois = null;
@@ -83,6 +86,39 @@ public class userDaoImpl implements userDao {
                 throw new RuntimeException(e);
             }
 
+        }
+    }
+
+    /*
+    * 删除用户
+    * */
+
+    @Override
+    public void deleteUser(User user) {
+        ObjectInputStream ois = null;
+        ObjectOutputStream oos = null;
+        try{
+            ois = new ObjectInputStream(new FileInputStream(Constant.USER_PATH));
+            List<User> userList = (List<User>)ois.readObject();
+            User deleteUser = userList.stream().filter(u -> u.getId().equals(user.getId())).findFirst().get();
+            userList.remove(deleteUser);
+            oos = new ObjectOutputStream(new FileOutputStream(Constant.USER_PATH));
+            oos.writeObject(userList);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally{
+            try{
+                if(oos != null){
+                    oos.close();
+                }
+                if(ois != null){
+                    ois.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 }

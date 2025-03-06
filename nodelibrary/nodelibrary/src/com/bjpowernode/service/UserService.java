@@ -8,4 +8,5 @@ public interface UserService {
     List<User> selectUser();
     void addUser(User user);
     void updateUser(User user);
+    void deleteUser(User user);
 }

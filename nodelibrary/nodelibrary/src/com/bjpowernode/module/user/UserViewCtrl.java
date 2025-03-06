@@ -75,6 +75,7 @@ public class UserViewCtrl implements Initializable {
                 Alerts.warning("未选择","请先选择要删除的数据");
                 return;
             }
+            userService.deleteUser(user);
             this.users.remove(user);
             Alerts.success("成功", "操作成功");
         } catch (Exception e) {
