@@ -43,4 +43,12 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(User user) {
         userDao.deleteUser(user);
     }
+
+    /*
+    *  将用户状态修改为冻结
+    * */
+    @Override
+    public void updateStatus(String id, String status) {
+        userDao.updateStatus(id, status);
+    }
 }

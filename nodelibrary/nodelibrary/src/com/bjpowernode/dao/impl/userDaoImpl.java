@@ -121,4 +121,36 @@ public class userDaoImpl implements userDao {
             }
         }
     }
+
+    /*
+    *  修改用户状态
+    * */
+
+    @Override
+    public void updateStatus(String id, String status) {
+        ObjectInputStream ois = null;
+        ObjectOutputStream oos = null;
+        try{
+            ois = new ObjectInputStream(new FileInputStream(Constant.USER_PATH));
+            List<User> userList = (List<User>)ois.readObject();
+            User originUser = userList.stream().filter(u -> u.getId().equals(id)).findFirst().get();
+            originUser.setStatus(status);
+            oos = new ObjectOutputStream(new FileOutputStream(Constant.USER_PATH));
+            oos.writeObject(userList);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally{
+            try{
+                if(ois != null){
+                    ois.close();
+                }
+                if(oos != null){
+                    oos.close();
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -75,6 +75,7 @@ public class UserViewCtrl implements Initializable {
                 Alerts.warning("未选择","请先选择要删除的数据");
                 return;
             }
+            // 将用户从文件中删除
             userService.deleteUser(user);
             this.users.remove(user);
             Alerts.success("成功", "操作成功");
@@ -108,7 +109,28 @@ public class UserViewCtrl implements Initializable {
             Alerts.warning("未选择","请先选择要修改的数据");
             return;
         }
+        // 修改文件中的用户状态
+        userService.updateStatus(user.getId(), Constant.USER_FROZEN);
+        // 修改内存中的用户状态
         user.setStatus(Constant.USER_FROZEN);
+        userTableView.refresh();
+    }
+
+    /*
+    *  解冻用户
+    * */
+    @FXML
+    private void unfrozen() {
+        User user = this.userTableView.getSelectionModel().getSelectedItem();
+        // 字符串不能用 == 比较
+        if (user == null || !(user.getStatus().equals(Constant.USER_FROZEN))) {
+            Alerts.warning("错误","未选择用户或用户状态为正常");
+            return;
+        }
+        // 修改文件中用户的状态
+        userService.updateStatus(user.getId(), Constant.USER_OK);
+        // 修改内存中的用户状态
+        user.setStatus(Constant.USER_OK);
         userTableView.refresh();
     }
 
