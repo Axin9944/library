@@ -52,4 +52,37 @@ public class userDaoImpl implements userDao {
             }
         }
     }
+
+    @Override
+    public void updateUser(User user) {
+        ObjectInputStream ois = null;
+        ObjectOutputStream oos = null;
+        try{
+            ois = new ObjectInputStream(new FileInputStream(Constant.USER_PATH));
+            List<User> userList = (List<User>)ois.readObject();
+            User originUser = userList.stream().filter(u -> u.getId().equals(user.getId())).findFirst().get();
+
+            originUser.setName(user.getName());
+            originUser.setMoney(user.getMoney());
+
+            oos = new ObjectOutputStream(new FileOutputStream(Constant.USER_PATH));
+            oos.writeObject(userList);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally{
+            try {
+                if(oos != null){
+                ois.close();
+                }
+                if(oos != null){
+                    oos.close();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
 }

@@ -46,8 +46,12 @@ public class UserHandleViewCtrl {
         try {
             String id = userIdField.getText();
             if ("".equals(id) || null == id) {
+                // 生成UUID
+                String uuid = UUID.randomUUID().toString();
                 //添加操作
                 User user = new User();
+                // 设置id
+                user.setId(uuid);
                 populate(user);
                 //设置状态为正常
                 user.setStatus(Constant.USER_OK);
@@ -60,6 +64,8 @@ public class UserHandleViewCtrl {
             }else {
                 //修改操作
                 populate(this.user);
+                // 将修改保存至文件
+                userService.updateUser(user);
                 //刷新
                 userTableView.refresh();
             }
@@ -74,10 +80,10 @@ public class UserHandleViewCtrl {
     }
 
     private void populate(User user) {
-        String id = UUID.randomUUID().toString();
+
         user.setMoney(new BigDecimal(moneyField.getText()));
         user.setName(userNameField.getText());
-        user.setId(id);
+        // user.setId(id);
     }
 
     @FXML
