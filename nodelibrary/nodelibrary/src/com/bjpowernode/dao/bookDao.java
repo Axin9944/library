@@ -9,4 +9,9 @@ public interface bookDao {
     *   查询所有图书
     * */
     List<Book> selectBooks();
+
+    /*
+    *  添加图书
+    * */
+    void addBook(Book book);
 }
