@@ -132,7 +132,12 @@ public class BookViewCtrl implements Initializable {
         boolean bookFlag = "".equals(bookName);
         boolean isbnFlag = "".equals(isbn);
         ObservableList<Book> result = books;
+        // 判断输入的书名和isbn号是否为空
         if (bookFlag && isbnFlag) {
+            // 为空则展示所有的图书信息
+            books.clear();
+            books.addAll(bookService.selectBook());
+            bookTableView.refresh();
             return;
         }else {
             if (!bookFlag){
