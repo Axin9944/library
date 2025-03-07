@@ -140,11 +140,21 @@ public class BookViewCtrl implements Initializable {
             bookTableView.refresh();
             return;
         }else {
-            if (!bookFlag){
+            /*if (!bookFlag){
                 result = books.filtered(s -> s.getBookName().contains(bookName));
             }
             if (!isbnFlag) {
                 result = books.filtered(s -> s.getIsbn().contains(isbn));
+            }*/
+            if (!bookFlag && !isbnFlag) {
+                result.clear();
+                result.addAll(bookService.selectBook(bookName, isbn));
+            }else if(!bookFlag){
+                result.clear();
+                result.addAll(bookService.selectBook(bookName, null));
+            }else{
+                result.clear();
+                result.addAll(bookService.selectBook(null, isbn));
             }
         }
 

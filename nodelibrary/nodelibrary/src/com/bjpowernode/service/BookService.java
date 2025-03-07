@@ -7,4 +7,5 @@ import java.util.List;
 public interface BookService {
     List<Book> selectBook();
     void addBook(Book book);
+    List<Book> selectBook(String bookName, String isbn);
 }

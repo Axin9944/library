@@ -20,6 +20,15 @@ public class BookServiceImpl implements BookService {
     }
 
     /*
+    *   根据图书姓名 isbn号筛选图书
+    * */
+
+    @Override
+    public List<Book> selectBook(String bookName, String isbn) {
+        return bookDao.selectBooks(bookName, isbn);
+    }
+
+    /*
     *   添加图书至文件
     * */
     @Override

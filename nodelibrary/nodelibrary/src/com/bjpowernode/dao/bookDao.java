@@ -11,6 +11,11 @@ public interface bookDao {
     List<Book> selectBooks();
 
     /*
+    *   根据图书名字、ISBN号查询图书
+    * */
+    List<Book> selectBooks(String bookName, String isbn);
+
+    /*
     *  添加图书
     * */
     void addBook(Book book);
