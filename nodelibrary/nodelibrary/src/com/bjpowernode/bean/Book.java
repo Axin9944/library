@@ -1,11 +1,14 @@
 package com.bjpowernode.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /*
     Í¼Êé
  */
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     //±àºÅ
     private String id;
     //ÊéÃû
@@ -20,6 +23,19 @@ public class Book {
     private String publisher;
     //×´Ì¬
     private String status;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", bookName='" + bookName + '\'' +
+                ", author='" + author + '\'' +
+                ", type='" + type + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
