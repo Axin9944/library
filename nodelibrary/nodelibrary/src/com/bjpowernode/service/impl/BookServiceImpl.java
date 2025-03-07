@@ -35,4 +35,12 @@ public class BookServiceImpl implements BookService {
     public void addBook(Book book) {
         bookDao.addBook(book);
     }
+
+    /*
+    *   删除图书
+    * */
+    @Override
+    public void deleteBook(Book book) {
+        bookDao.deleteBook(book);
+    }
 }

@@ -19,4 +19,9 @@ public interface bookDao {
     *  添加图书
     * */
     void addBook(Book book);
+
+    /*
+    *   删除图书
+    * */
+    void deleteBook(Book book);
 }

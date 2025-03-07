@@ -84,4 +84,26 @@ public class bookImpl implements bookDao {
             }
         }
     }
+
+    /*
+    *   删除图书
+    * */
+    @Override
+    public void deleteBook(Book book){
+        ObjectInputStream ois = null;
+        ObjectOutputStream oos = null;
+        try{
+            ois = new ObjectInputStream(new FileInputStream(Constant.BOOK_PATH));
+            List<Book> bookList = (List<Book>)ois.readObject();
+            // 根据图书 ID 找到图书并删除
+            bookList.remove(bookList.stream().
+                    filter(bk -> bk.getId().equals(book.getId())).findFirst().get());
+
+            oos = new ObjectOutputStream(new FileOutputStream(Constant.BOOK_PATH));
+            oos.writeObject(bookList);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
 }

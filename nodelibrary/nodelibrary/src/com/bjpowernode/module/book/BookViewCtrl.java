@@ -106,6 +106,9 @@ public class BookViewCtrl implements Initializable {
         }
     }
 
+    /*
+    *   删除图书
+    * */
     @FXML
     private void deleteBook() {
         try {
@@ -114,6 +117,9 @@ public class BookViewCtrl implements Initializable {
                 Alerts.warning("未选择","请先选择要删除的数据");
                 return;
             }
+            // 将图书从文件中删除
+            bookService.deleteBook(book);
+            // 将图书从内存中删除
             this.books.remove(book);
             Alerts.success("成功", "图书修改成功");
         } catch (Exception e) {
