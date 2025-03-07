@@ -146,7 +146,7 @@ public class BookViewCtrl implements Initializable {
             if (!isbnFlag) {
                 result = books.filtered(s -> s.getIsbn().contains(isbn));
             }*/
-            if (!bookFlag && !isbnFlag) {
+            /*if (!bookFlag && !isbnFlag) {
                 result.clear();
                 result.addAll(bookService.selectBook(bookName, isbn));
             }else if(!bookFlag){
@@ -155,7 +155,9 @@ public class BookViewCtrl implements Initializable {
             }else{
                 result.clear();
                 result.addAll(bookService.selectBook(null, isbn));
-            }
+            }*/
+            result.clear();
+            result.addAll(bookService.selectBook(bookName, isbn));
         }
 
         books = new ObservableListWrapper<Book>(new ArrayList<Book>(result));
