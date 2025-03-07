@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class Book {
     //编号
-    private int id;
+    private String id;
     //书名
     private String bookName;
     //作者
@@ -40,11 +40,11 @@ public class Book {
         return Objects.hash(id, bookName, author, type, isbn, publisher, status);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -99,7 +99,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(int id, String bookName, String author, String type, String isbn, String publisher, String status) {
+    public Book(String id, String bookName, String author, String type, String isbn, String publisher, String status) {
         this.id = id;
         this.bookName = bookName;
         this.author = author;
