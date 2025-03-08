@@ -1,5 +1,7 @@
 package com.bjpowernode.module.lend;
 
+import com.bjpowernode.service.LendService;
+import com.bjpowernode.service.impl.LendServiceImpl;
 import com.gn.App;
 import com.bjpowernode.bean.Book;
 import com.bjpowernode.bean.Constant;
@@ -28,6 +30,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -62,12 +65,18 @@ public class LendViewCtrl implements Initializable {
 
     ObservableList<Lend> lends = FXCollections.observableArrayList();
 
+    private LendService lendService = new LendServiceImpl();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Book book = new Book("1", "java实战入门", "张三", Constant.TYPE_COMPUTER, "12-987", "XX出版社", Constant.STATUS_STORAGE);
+        /*Book book = new Book("1", "java实战入门", "张三", Constant.TYPE_COMPUTER, "12-987", "XX出版社", Constant.STATUS_STORAGE);
         User user = new User("1", "张三", "正常", new BigDecimal(("100")));
         LocalDate now = LocalDate.now();
-        lends.add(new Lend(1,book,user, Constant.LEND_LEND, now,now.plusDays(30)));
+        lends.add(new Lend("1",book,user, Constant.LEND_LEND, now,now.plusDays(30)));*/
+
+        List<Lend> lendList = lendService.selectLend();
+
+        lends.addAll(lendList);
 
         c1.setCellValueFactory(new PropertyValueFactory<>("id"));
         //获取图书名称
