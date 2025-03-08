@@ -2,11 +2,19 @@ package com.bjpowernode.util;
 
 import com.bjpowernode.bean.Book;
 import com.bjpowernode.bean.Constant;
+import com.bjpowernode.bean.Lend;
 import com.bjpowernode.bean.User;
+import com.bjpowernode.service.BookService;
+import com.bjpowernode.service.UserService;
+import com.bjpowernode.service.impl.BookServiceImpl;
+import com.bjpowernode.service.impl.UserServiceImpl;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +25,7 @@ public class initDatautil {
     public static void main(String[] args) {
         initUser();
         initBook();
+        initLend();
     }
 
     /*
@@ -101,6 +110,54 @@ public class initDatautil {
                     throw new RuntimeException(e);
                 }
             }
+        }
+    }
+
+    /*
+    *   初始化借书数据
+    * */
+    public static void initLend(){
+        File durectiry = null;
+        File file = null;
+        ObjectOutputStream oos = null;
+        try{
+            durectiry = new File(Constant.Lend_PATH.split("/")[0] + "/");
+            if(!durectiry.exists()){
+                durectiry.mkdir();
+            }
+            file = new File(Constant.Lend_PATH);
+            if (!file.exists()){
+                file.createNewFile();
+                Lend lend = new Lend();
+                UserService userService = new UserServiceImpl();
+                List<User> userList = userService.selectUser();
+                BookService bookService = new BookServiceImpl();
+                List<Book> bookList = bookService.selectBook();
+                List<Lend> lendList = new ArrayList<>();
+                // 设置借书用户
+                lend.setUser(userList.get(0));
+                // 设置借的图书
+                lend.setBook(bookList.get(0));
+                // 设置订单ID
+                lend.setId(UUID.randomUUID().toString());
+                // 设置状态
+                lend.setStatus(Constant.STATUS_LEND);
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                // 获取当前时间
+                LocalDate localDate = LocalDate.now();
+                // 将当前时间设置借书时间
+                lend.setLendDate(localDate);
+                // 将当前时间加7天为借书还书时间
+                lend.setReturnDate(localDate.plusDays(7));
+
+                lendList.add(lend);
+                oos = new ObjectOutputStream(new FileOutputStream(file));
+                oos.writeObject(lendList);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+
         }
     }
 }
