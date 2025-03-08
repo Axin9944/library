@@ -95,8 +95,8 @@ public class BookViewCtrl implements Initializable {
     private void lendBook() {
         try {
             Book book = this.bookTableView.getSelectionModel().getSelectedItem();
-            if (book == null){
-                Alerts.warning("未选择","请先选择要借阅的书籍");
+            if (book == null || Constant.STATUS_LEND.equals(book.getStatus())){
+                Alerts.warning("未选择","请先选择要借阅的书籍/该书已被借出");
                 return;
             }
 
