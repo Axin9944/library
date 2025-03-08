@@ -120,6 +120,8 @@ public class initDatautil {
         File durectiry = null;
         File file = null;
         ObjectOutputStream oos = null;
+        ObjectOutputStream userOos = null;
+        ObjectOutputStream bookOos = null;
         try{
             durectiry = new File(Constant.Lend_PATH.split("/")[0] + "/");
             if(!durectiry.exists()){
@@ -136,8 +138,12 @@ public class initDatautil {
                 List<Lend> lendList = new ArrayList<>();
                 // 设置借书用户
                 lend.setUser(userList.get(0));
+                // 将该用户是否已借书的状态改为true
+                userList.get(0).setLend(true);
                 // 设置借的图书
                 lend.setBook(bookList.get(0));
+                // 将该图书的状态改为出借
+                bookList.get(0).setStatus(Constant.STATUS_LEND);
                 // 设置订单ID
                 lend.setId(UUID.randomUUID().toString());
                 // 设置状态
@@ -152,12 +158,28 @@ public class initDatautil {
 
                 lendList.add(lend);
                 oos = new ObjectOutputStream(new FileOutputStream(file));
+                userOos = new ObjectOutputStream(new FileOutputStream(Constant.USER_PATH));
+                bookOos = new ObjectOutputStream(new FileOutputStream(Constant.BOOK_PATH));
                 oos.writeObject(lendList);
+                userOos.writeObject(userList);
+                bookOos.writeObject(bookList);
             }
         }catch(Exception e){
             e.printStackTrace();
         }finally{
-
+            try{
+                if(oos!=null){
+                    oos.close();
+                }
+                if(userOos!=null){
+                    userOos.close();
+                }
+                if(bookOos!=null){
+                    bookOos.close();
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         }
     }
 }

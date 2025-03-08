@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class userDaoImpl implements userDao {
 
@@ -151,6 +152,21 @@ public class userDaoImpl implements userDao {
             }catch(IOException e){
                 e.printStackTrace();
             }
+        }
+    }
+
+    /*
+    *   查询能借书的用户
+    * */
+    @Override
+    public List<User> selectUserToLend() {
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constant.USER_PATH))){
+            List<User> userList = (List<User>) ois.readObject();
+            return userList.stream().filter(u -> !u.isLend() && Constant.USER_OK.equals(u.getStatus()))
+                    .collect(Collectors.toList());
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 }

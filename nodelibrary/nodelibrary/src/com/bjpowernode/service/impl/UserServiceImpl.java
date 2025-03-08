@@ -51,4 +51,12 @@ public class UserServiceImpl implements UserService {
     public void updateStatus(String id, String status) {
         userDao.updateStatus(id, status);
     }
+
+    /*
+    *   查询能借书的用户
+    * */
+    @Override
+    public List<User> selectUserToLend() {
+        return userDao.selectUserToLend();
+    }
 }

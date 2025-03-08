@@ -10,4 +10,5 @@ public interface UserService {
     void updateUser(User user);
     void deleteUser(User user);
     void updateStatus(String id, String status);
+    List<User> selectUserToLend();
 }
