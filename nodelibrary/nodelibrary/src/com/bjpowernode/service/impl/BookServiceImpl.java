@@ -7,6 +7,7 @@ import com.bjpowernode.service.BookService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class BookServiceImpl implements BookService {
     private bookDao bookDao = new bookImpl();
@@ -50,5 +51,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(Book book) {
         bookDao.updateBook(book);
+    }
+
+    /*
+    *   统计图书类型
+    * */
+    @Override
+    public Map<String, Integer> statisticsBook() {
+        return bookDao.statisticsBook();
     }
 }

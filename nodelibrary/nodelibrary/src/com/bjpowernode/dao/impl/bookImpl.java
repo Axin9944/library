@@ -5,8 +5,7 @@ import com.bjpowernode.bean.Constant;
 import com.bjpowernode.dao.bookDao;
 
 import java.io.*;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class bookImpl implements bookDao {
@@ -142,6 +141,28 @@ public class bookImpl implements bookDao {
             }catch (IOException e){
                 e.printStackTrace();
             }
+        }
+    }
+
+    /*
+    *   统计不同图书类型的数量
+    * */
+    @Override
+    public Map<String, Integer> statisticsBook() {
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constant.BOOK_PATH))){
+            List<Book> bookList = (List<Book>)ois.readObject();
+
+            Map<String, List<Book>> bookTypeCollect = bookList.stream().collect(Collectors.groupingBy(Book::getType));
+            Map<String, Integer> map = new HashMap<>();
+            Iterator<Map.Entry<String, List<Book>>> iterator = bookTypeCollect.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry<String, List<Book>> next = iterator.next();
+                map.put(next.getKey(), next.getValue() == null ? 0 : next.getValue().size());
+            }
+            return map;
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 }

@@ -3,6 +3,7 @@ package com.bjpowernode.dao;
 import com.bjpowernode.bean.Book;
 
 import java.util.List;
+import java.util.Map;
 
 public interface bookDao {
     /*
@@ -29,4 +30,6 @@ public interface bookDao {
     *   修改图书信息
     * */
     void updateBook(Book book);
+
+    Map<String, Integer> statisticsBook();
 }
