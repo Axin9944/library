@@ -24,4 +24,9 @@ public interface bookDao {
     *   删除图书
     * */
     void deleteBook(Book book);
+
+    /*
+    *   修改图书信息
+    * */
+    void updateBook(Book book);
 }

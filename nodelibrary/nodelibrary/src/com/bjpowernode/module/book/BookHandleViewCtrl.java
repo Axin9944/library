@@ -64,8 +64,11 @@ public class BookHandleViewCtrl {
                 // 添加至文件
                 bookService.addBook(book);
             }else {
-                //修改操作
+
+                //修改内存数据的操作
                 populate(this.book);
+                // 修改文件中的数据
+                bookService.updateBook(book);
                 //刷新
                 bookTableView.refresh();
             }

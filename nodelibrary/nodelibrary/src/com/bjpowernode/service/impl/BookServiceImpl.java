@@ -43,4 +43,12 @@ public class BookServiceImpl implements BookService {
     public void deleteBook(Book book) {
         bookDao.deleteBook(book);
     }
+
+    /*
+    *   修改图书基础信息
+    * */
+    @Override
+    public void updateBook(Book book) {
+        bookDao.updateBook(book);
+    }
 }

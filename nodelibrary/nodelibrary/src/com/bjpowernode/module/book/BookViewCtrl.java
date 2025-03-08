@@ -182,6 +182,7 @@ public class BookViewCtrl implements Initializable {
                 return;
             }
 
+            // 打开图书修改页面
            initStage(book);
         } catch (IOException e) {
             e.printStackTrace();

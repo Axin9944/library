@@ -9,4 +9,5 @@ public interface BookService {
     void addBook(Book book);
     List<Book> selectBook(String bookName, String isbn);
     void deleteBook(Book book);
+    void updateBook(Book book);
 }

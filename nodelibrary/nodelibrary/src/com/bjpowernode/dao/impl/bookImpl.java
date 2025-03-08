@@ -106,4 +106,42 @@ public class bookImpl implements bookDao {
             throw new RuntimeException();
         }
     }
+
+    /*
+    *   修改图书基础信息
+    * */
+    @Override
+    public void updateBook(Book book){
+        ObjectInputStream ois = null;
+        ObjectOutputStream oos = null;
+        try{
+            ois = new ObjectInputStream(new FileInputStream(Constant.BOOK_PATH));
+            List<Book> bookList = (List<Book>)ois.readObject();
+
+            Book originBook = bookList.stream()
+                    .filter(bk -> bk.getId().equals(book.getId())).findFirst().get();
+            originBook.setBookName(book.getBookName());
+            originBook.setIsbn(book.getIsbn());
+            originBook.setAuthor(book.getAuthor());
+            originBook.setPublisher(book.getPublisher());
+            originBook.setType(book.getType());
+
+            oos = new ObjectOutputStream(new FileOutputStream(Constant.BOOK_PATH));
+            oos.writeObject(bookList);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally{
+            try{
+                if(ois != null){
+                    ois.close();
+                }
+                if(oos != null){
+                    oos.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
 }
